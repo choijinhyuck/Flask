@@ -1,14 +1,14 @@
 from flask import Blueprint, url_for
 from werkzeug.utils import redirect
 
-bp = Blueprint('main', __name__, url_prefix='/')
+bp = Blueprint("main", __name__, url_prefix="/")
 
 
-@bp.route('/')
+@bp.route("/")
 def index():
-    return redirect(url_for('question._list'))
+    return redirect(url_for("question._list"))
 
 
-@bp.route('/main')
+@bp.route("/main")
 def hello_main():
     return "Main!!"
