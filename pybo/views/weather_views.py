@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from ...Weather_project import main as forecast
 
 bp = Blueprint("weather", __name__, url_prefix="/weather")
 
