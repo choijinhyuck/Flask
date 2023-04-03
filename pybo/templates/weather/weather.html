@@ -16,7 +16,6 @@
     <tr class="text-center">
         <td>{{ question_list.total - ((question_list.page
             -1)*question_list.per_page) - loop.index0 }}</td>
-            {% endif %}
         </td>
         <td>{{ question.user.username }}</td> <!-- 글쓴이 -->
         <td>{{ question.create_date|datetime }}</td>
@@ -30,7 +29,7 @@
     </tbody>
 </table>
 
-{{ info }}
+{{ info.fcst['TMP'] }}
 
 {% endblock %}
 {% block script %}
