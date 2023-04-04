@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{msg}}</h3>
+
+<form method="get">
+    <label for="si">대분류 :</label><br>
+    <select class="form-select" id="si" name="si">
+        <option value="대전">대전</option>
+    </select><br>
+    
+    <label for="gun">중분류 :</label><br>
+    <select class="form-select" id="gun" name="gun">
+        <option value="대전">대전</option>
+    </select><br>
+
+    <label for="dong">소분류 :</label><br>
+    <select class="form-select" id="dong" name="dong">
+        <option value="대전">대전</option>
+    </select><br>
+
+    <button class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
+</form>
+
+{% endblock %}
+{% block script %}
+<script type='text/javascript' id=city src="{{ url_for('static', filename='city_table.json')}}">
+
+</script>
+{% endblock %}
