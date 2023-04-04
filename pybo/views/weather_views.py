@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
 from Weather_project.main import GetWeather
 
 
-@bp.route("/")
+@bp.route("")
 def index():
     site = request.args.to_dict()
     if "si" in site:
