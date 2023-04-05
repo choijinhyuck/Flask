@@ -11,8 +11,10 @@
     <!-- MarkDown CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='markdown_stack.css') }}">
     <!-- SimpleMde -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">    
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    {% block head %}
+    {% endblock %}
     <title>Hello, pybo!</title>
 </head>
 <body>

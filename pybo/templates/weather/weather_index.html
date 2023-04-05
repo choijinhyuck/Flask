@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block head %}
+<!-- 로딩창 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}">
+<script src="{{ url_for('static', filename='loading.js') }}"></script>
+{% endblock %}
 {% block content %}
 <div class="container">
     <h2>{{msg}}</h2>
@@ -16,7 +21,7 @@
         <select class="form-select" id="dong" name="dong" disabled>
         </select><br>
 
-        <button class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
+        <button onclick="showLoading()" class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
     </form><br>
 </div>
 {% endblock %}
@@ -76,5 +81,6 @@ select_gun.addEventListener("change", function(element) {
 select_dong.addEventListener("change", function(element) {
     button.removeAttribute('disabled')
 })
+
 </script>
 {% endblock %}
