@@ -18,7 +18,7 @@ def index():
             )
         except:
             return render_template(
-                "weather/weather_index.html", msg="미안합니다. 찾을 수가 없어요. 다시 입력 부탁드려요."
+                "weather/weather_index.html", msg="오류 발생. 현재 날씨 정보를 찾을 수가 없어요. 다시 선택해주세요."
             )
     else:
-        return render_template("weather/weather_index.html", msg="주소를 입력해주세요.")
+        return render_template("weather/weather_index.html", msg="주소를 선택해주세요.")

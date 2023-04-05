@@ -1,29 +1,80 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>{{msg}}</h3>
+<div class="container">
+    <h2>{{msg}}</h2>
+    <form method="get">
+        <label for="si">대분류 :</label><br>
+        <select class="form-select" id="si" name="si">
+            <option value="" selected disabled hidden >선택해주세요.</option>
+        </select><br>
+        
+        <label for="gun">중분류 :</label><br>
+        <select class="form-select" id="gun" name="gun" disabled>
+        </select><br>
 
-<form method="get">
-    <label for="si">대분류 :</label><br>
-    <select class="form-select" id="si" name="si">
-        <option value="대전">대전</option>
-    </select><br>
-    
-    <label for="gun">중분류 :</label><br>
-    <select class="form-select" id="gun" name="gun">
-        <option value="대전">대전</option>
-    </select><br>
+        <label for="dong">소분류 :</label><br>
+        <select class="form-select" id="dong" name="dong" disabled>
+        </select><br>
 
-    <label for="dong">소분류 :</label><br>
-    <select class="form-select" id="dong" name="dong">
-        <option value="대전">대전</option>
-    </select><br>
-
-    <button class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
-</form>
-
+        <button class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
+    </form><br>
+</div>
 {% endblock %}
 {% block script %}
-<script type='text/javascript' id=city src="{{ url_for('static', filename='city_table.json')}}">
+<script type='text/javascript' id=city src="{{ url_for('static', filename='city_table.json')}}"></script>
+<script>
+var select_si = document.getElementById("si")
+var select_gun = document.getElementById("gun")
+var select_dong = document.getElementById("dong")
+var button = document.getElementById('submit')
 
+for ( var first in data ) {
+    var opt = document.createElement('option');
+    opt.setAttribute('value', first);
+    opt.innerHTML = first;
+    select_si.appendChild(opt);
+}
+
+select_si.addEventListener("change", function(element) {
+    button.setAttribute('disabled', "")
+    select_gun.removeAttribute('disabled')
+    select_gun.replaceChildren()
+    var opt_default = document.createElement('option');
+    opt_default.setAttribute('value', "");
+    opt_default.setAttribute('disabled', "");
+    opt_default.setAttribute('selected', "");
+    opt_default.setAttribute('hidden', "");
+    opt_default.innerHTML = "선택해주세요."
+    select_gun.appendChild(opt_default)
+    select_dong.replaceChildren()
+    select_dong.setAttribute('disabled', "")
+    for ( var second in data[select_si.value] ) {
+        var opt = document.createElement('option');
+        opt.setAttribute('value', second);
+        opt.innerHTML = second;
+        select_gun.appendChild(opt);
+    }
+})
+select_gun.addEventListener("change", function(element) {
+    button.setAttribute('disabled', "")
+    select_dong.removeAttribute('disabled')
+    select_dong.replaceChildren()
+    var opt_default = document.createElement('option');
+    opt_default.setAttribute('value', "");
+    opt_default.setAttribute('disabled', "");
+    opt_default.setAttribute('selected', "");
+    opt_default.setAttribute('hidden', "");
+    opt_default.innerHTML = "선택해주세요."
+    select_dong.appendChild(opt_default)
+    for ( var third in data[select_si.value][select_gun.value] ) {
+        var opt = document.createElement('option');
+        opt.setAttribute('value', data[select_si.value][select_gun.value][third]);
+        opt.innerHTML = data[select_si.value][select_gun.value][third];
+        select_dong.appendChild(opt);
+    }
+})
+select_dong.addEventListener("change", function(element) {
+    button.removeAttribute('disabled')
+})
 </script>
 {% endblock %}

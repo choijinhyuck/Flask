@@ -1,93 +1,183 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> {{ site[0] }} {{ site[1]}} {{ site[2] }} </h1>
-<table class="table">
-    <tbody>
-    {% if info %}
-        <tr class="text-center table-info">
-            <th colspan="24" class="table-danger">
-                {{ info.fcst['SKY'][0][0][:4] }}년<br>{{ info.fcst['SKY'][0][0][4:6] }}월 {{ info.fcst['SKY'][0][0][7:] }}일
-            </th>
-            <th colspan="24", class="table-primary">
-                {{ info.fcst['SKY'][24][0][:4] }}년<br>{{ info.fcst['SKY'][24][0][4:6] }}월 {{ info.fcst['SKY'][24][0][7:] }}일
-            </th>
-            <th colspan="24">
-                {{ info.fcst['SKY'][48][0][:4] }}년<br>{{ info.fcst['SKY'][48][0][4:6] }}월 {{ info.fcst['SKY'][48][0][7:] }}일
-            </th>
-        </tr>
-        <tr class="text-center table-warning">
-            {% for dt in info.fcst['SKY'] %}
-            <th>
-                {{ dt[1][:2] }}시
-            </th>
-            {% endfor %}
-        </tr>
-        <tr class="text-center">
-            {% for sky in info.fcst['SKY'] %}
-            <td>
-                {% if sky[2] == '1' %}
-                {% if sky[1][:2]|int >= 6 and sky[1][:2]|int < 18 %}
-                <img src="{{ url_for('static', filename='sky/Clear.png') }}"><br>
-                {% else %}
-                <img src="{{ url_for('static', filename='sky/ClearNight.png') }}"><br>
-                {% endif %}
-                맑아부러
-                {% elif sky[2] == '3' %}
-                {% if sky[1][:2]|int >= 6 and sky[1][:2]|int < 18 %}
-                <img src="{{ url_for('static', filename='sky/MostlyCloudy.png') }}"><br>
-                {% else %}
-                <img src="{{ url_for('static', filename='sky/MostlyCloudyNight.png') }}"><br>
-                {% endif %}
-                구름 솔찬히 많어
-                {% else %}
-                <img src="{{ url_for('static', filename='sky/Cloudy.png') }}"><br>
-                흐리당께
-                {% endif %}
-            </td>
-            {% endfor %}
-        </tr>
-        <tr class="text-center table-dark">
-            {% for tmp in info.fcst['TMP'] %}
-            <td>🌡️ {{ tmp[2] }} °C</td>
-            {% endfor %}
-        </tr>
-        <tr class="text-center table-danger">
-            {% for rain in info.fcst['POP'] %}
-            <td><img src="{{ url_for('static', filename='sky/rainy.png') }}" width="50%" height="50%"> {{ rain[2] }} % </td>
-            {% endfor %}
-        </tr>
-    {% else %}
-    <tr>
-        <td colspan="3">날씨 정보가 없습니다.</td>
-    </tr>
-    {% endif %}
-    </tbody>
-</table>
+<div class="container">
+    <div class="table-responsive">
+        <h1> {{ site[0] }} {{ site[1]}} {{ site[2] }} </h1>
+        <table class="table">
+            <colgroup>
+                <col span="23">
+                <col span='1' style="border-right:4px solid #000000;">
+                <col span="23">
+                <col span='1' style="border-right:4px solid #000000;">
+            </colgroup>
+            <thead>
+            {% if info %}
+                <tr class="bg-info">
+                    <th colspan="24" class="bg-danger">
+                        {{ info.fcst['SKY'][0][0][:4] }} 년 {{ info.fcst['SKY'][0][0][4:6] }}월 {{ info.fcst['SKY'][0][0][6:] }}일
+                    </th>
+                    <th colspan="24", class="bg-primary">
+                        {{ info.fcst['SKY'][24][0][:4] }} 년 {{ info.fcst['SKY'][24][0][4:6] }}월 {{ info.fcst['SKY'][24][0][6:] }}일
+                    </th>
+                    <th colspan="24">
+                        {{ info.fcst['SKY'][48][0][:4] }} 년 {{ info.fcst['SKY'][48][0][4:6] }}월 {{ info.fcst['SKY'][48][0][6:] }}일
+                    </th>
+                </tr>
+                <tr class="text-center bg-info">
+                    {% for i, dt in info.fcst['SKY']|enu %}
+                    {% if i < 24 %}
+                    <th class="bg-danger">
+                    {% elif i < 48 %}
+                    <th class="bg-primary">
+                    {% else %}
+                    <th>
+                    {% endif %}
+                        {{ dt[1][:2] }}시
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center table-info">
+                    {% for i, sky in info.fcst['SKY']|enu %}
+                    {% if i < 24 %}
+                    <td class="table-danger">
+                    {% elif i < 48 %}
+                    <td class="table-primary">
+                    {% else %}
+                    <td>
+                    {% endif %}
+                        {% if sky[2] == '1' %}
+                        {% if sky[1][:2]|int >= 6 and sky[1][:2]|int < 18 %}
+                        <img src="{{ url_for('static', filename='sky/Clear.png') }}"><br>
+                        {% else %}
+                        <img src="{{ url_for('static', filename='sky/ClearNight.png') }}"><br>
+                        {% endif %}
+                        맑아부러
+                        {% elif sky[2] == '3' %}
+                        {% if sky[1][:2]|int >= 6 and sky[1][:2]|int < 18 %}
+                        <img src="{{ url_for('static', filename='sky/MostlyCloudy.png') }}"><br>
+                        {% else %}
+                        <img src="{{ url_for('static', filename='sky/MostlyCloudyNight.png') }}"><br>
+                        {% endif %}
+                        구름 솔찬히 많어
+                        {% else %}
+                        <img src="{{ url_for('static', filename='sky/Cloudy.png') }}"><br>
+                        흐리당께
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr class="text-center table-info">
+                    {% for i, tmp in info.fcst['TMP']|enu %}
+                    {% if i < 24 %}
+                    <td class="table-danger">
+                    {% elif i < 48 %}
+                    <td class="table-primary">
+                    {% else %}
+                    <td>
+                    {% endif %}
+                        🌡️ {{ tmp[2] }} °C
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr class="text-center table-info">
+                    {% for i, rain in info.fcst['POP']|enu %}
+                    {% if i < 24 %}
+                    <td class="table-danger">
+                    {% elif i < 48 %}
+                    <td class="table-primary">
+                    {% else %}
+                    <td>
+                    {% endif %}
+                        <img src="{{ url_for('static', filename='sky/rainy.png') }}"> {{ rain[2] }} %
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">날씨 정보가 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
 
-<h3> 다른 곳의 날씨가 궁금한가요? </h3>
+    <h3>다른 곳의 날씨가 궁금한가요?</h3>
+    <form method="get">
+        <label for="si">대분류 :</label><br>
+        <select class="form-select" id="si" name="si">
+            <option value="" selected disabled hidden >선택해주세요.</option>
+        </select><br>
+        
+        <label for="gun">중분류 :</label><br>
+        <select class="form-select" id="gun" name="gun" disabled>
+        </select><br>
 
-<form method="get">
-    <label for="si">대분류 :</label>
-    <select class="form-select" id="si" name="si">
-        <option value="대전">대전</option>
-    </select> &nbsp; &nbsp;
-    
-    <label for="gun">중분류 :</label>
-    <select id="gun" name="gun">
-        <option value="대전">대전</option>
-    </select> &nbsp; &nbsp;
+        <label for="dong">소분류 :</label><br>
+        <select class="form-select" id="dong" name="dong" disabled>
+        </select><br>
 
-    <label for="dong">소분류 :</label>
-    <select id="dong" name="dong">
-        <option value="대전">대전</option>
-    </select> &nbsp; &nbsp;
-
-    <button class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
-</form>
+        <button class="btn btn-primary" type="submit" id="submit" disabled> 조회 </button>
+    </form><br>
+</div>
 
 {% endblock %}
 {% block script %}
-<script type='text/javascript' src="{{ url_for('static', filename='city_table.json')}}">
+<script type='text/javascript' id=city src="{{ url_for('static', filename='city_table.json')}}"></script>
+<script>
+var select_si = document.getElementById("si")
+var select_gun = document.getElementById("gun")
+var select_dong = document.getElementById("dong")
+var button = document.getElementById('submit')
 
+for ( var first in data ) {
+    var opt = document.createElement('option');
+    opt.setAttribute('value', first);
+    opt.innerHTML = first;
+    select_si.appendChild(opt);
+}
+
+select_si.addEventListener("change", function(element) {
+    button.setAttribute('disabled', "")
+    select_gun.removeAttribute('disabled')
+    select_gun.replaceChildren()
+    var opt_default = document.createElement('option');
+    opt_default.setAttribute('value', "");
+    opt_default.setAttribute('disabled', "");
+    opt_default.setAttribute('selected', "");
+    opt_default.setAttribute('hidden', "");
+    opt_default.innerHTML = "선택해주세요."
+    select_gun.appendChild(opt_default)
+    select_dong.replaceChildren()
+    select_dong.setAttribute('disabled', "")
+    for ( var second in data[select_si.value] ) {
+        var opt = document.createElement('option');
+        opt.setAttribute('value', second);
+        opt.innerHTML = second;
+        select_gun.appendChild(opt);
+    }
+})
+select_gun.addEventListener("change", function(element) {
+    button.setAttribute('disabled', "")
+    select_dong.removeAttribute('disabled')
+    select_dong.replaceChildren()
+    var opt_default = document.createElement('option');
+    opt_default.setAttribute('value', "");
+    opt_default.setAttribute('disabled', "");
+    opt_default.setAttribute('selected', "");
+    opt_default.setAttribute('hidden', "");
+    opt_default.innerHTML = "선택해주세요."
+    select_dong.appendChild(opt_default)
+    for ( var third in data[select_si.value][select_gun.value] ) {
+        var opt = document.createElement('option');
+        opt.setAttribute('value', data[select_si.value][select_gun.value][third]);
+        opt.innerHTML = data[select_si.value][select_gun.value][third];
+        select_dong.appendChild(opt);
+    }
+})
+select_dong.addEventListener("change", function(element) {
+    button.removeAttribute('disabled')
+})
 </script>
 {% endblock %}

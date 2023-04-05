@@ -44,8 +44,9 @@ def create_app():
     Markdown(app, extensions=["nl2br", "fenced_code"])
 
     # 필터
-    from .filter import format_datetime
+    from .filter import format_datetime, enu
 
     app.jinja_env.filters["datetime"] = format_datetime
+    app.jinja_env.filters["enu"] = enu
 
     return app
