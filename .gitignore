@@ -4,3 +4,4 @@ __pycache__/
 pybo.db
 migrations/
 pybo/static/sky/
+pdf_files/

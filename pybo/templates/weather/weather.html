@@ -184,5 +184,14 @@ select_gun.addEventListener("change", function(element) {
 select_dong.addEventListener("change", function(element) {
     button.removeAttribute('disabled')
 })
+
+var tr_list = document.querySelectorAll('tr');
+var td_list = tr_list[4].querySelectorAll('td');
+td_list.forEach(function (d, idx) {
+    var d_len = d.innerText.length;
+    if (d.innerText.slice(d_len-4, d_len-1) > 49) {
+        tr_list[2].querySelectorAll('td')[idx].innerText = "비 내리는 호남선~";
+    }
+});
 </script>
 {% endblock %}
