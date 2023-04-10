@@ -32,13 +32,21 @@ def create_app():
 
     from . import models
 
-    from .views import main_views, question_views, answer_views, auth_views, weather_views
+    from .views import (
+        main_views,
+        question_views,
+        answer_views,
+        auth_views,
+        weather_views,
+        pdf_views,
+    )
 
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(weather_views.bp)
+    app.register_blueprint(pdf_views.bp)
 
     # markdownf
     Markdown(app, extensions=["nl2br", "fenced_code"])
