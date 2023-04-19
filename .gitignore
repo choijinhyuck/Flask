@@ -3,6 +3,6 @@ venv/
 __pycache__/
 pybo.db
 migrations/
-pybo/static/sky/
 pdf_files/
 config/production.py
+setting.cmd
