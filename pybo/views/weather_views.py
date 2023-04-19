@@ -16,9 +16,10 @@ def index():
             return render_template(
                 "weather/weather.html", info=info, site=[site["si"], site["gun"], site["dong"]]
             )
-        # except:
-        #     return render_template(
-        #         "weather/weather_index.html", msg="오류 발생. 현재 날씨 정보를 찾을 수가 없어요. 다시 선택해주세요."
-        #     )
+        except:
+            raise(Exception)
+            # return render_template(
+            #     "weather/weather_index.html", msg="오류 발생. 현재 날씨 정보를 찾을 수가 없어요. 다시 선택해주세요."
+        
     else:
         return render_template("weather/weather_index.html", msg="주소를 선택해주세요.")
