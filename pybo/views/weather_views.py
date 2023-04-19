@@ -12,7 +12,7 @@ def index():
     site = request.args.to_dict()
     if "si" in site:
         info = GetWeather(site["si"], site["gun"], site["dong"])
-            return render_template(
+        return render_template(
                 "weather/weather.html", info=info, site=[site["si"], site["gun"], site["dong"]]
             )
             # return render_template(
