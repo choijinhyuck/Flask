@@ -1,6 +1,6 @@
 <!-- 네비게이션바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
+    <div class="container-fluid" style="--bs-navbar-brand-font-size:20px;">
         <!-- <a class="navbar-brand" href="{{ url_for('main.index') }}">Pybo</a> -->
         <a class="navbar-brand" href="https://메모.웹.한국/">Main</a>
         <button class="navbar-toggler" type="button"
@@ -12,7 +12,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin:0;--bs-nav-link-font-size:16px;">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('weather.index')}}">날씨</a>
                 </li>
